@@ -29,7 +29,6 @@ services:
     image: ghcr.io/netboot-infra/discord-server-invite:latest
     networks:
       - public
-    pull_policy: always
     read_only: true
     user: "1000:1000"
     tmpfs:

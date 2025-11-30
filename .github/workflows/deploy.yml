@@ -60,4 +60,6 @@ jobs:
     - name: Execute Docker stack action
       env:
         DOCKER_HOST: "ssh://${{ vars.REMOTE_DOCKER_HOST }}:${{ vars.REMOTE_DOCKER_SSH_PORT }}"
-      run: docker stack deploy discord-invite --compose-file docker-compose.yml
+      run: |
+        docker pull ghcr.io/netboot-infra/discord-server-invite:latest
+        docker stack deploy discord-invite --compose-file docker-compose.yml
