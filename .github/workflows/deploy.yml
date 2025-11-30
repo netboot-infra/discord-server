@@ -59,6 +59,8 @@ jobs:
 
     - name: Execute Docker stack action
       env:
+        # Global variables
+        DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
         DOCKER_HOST: "ssh://${{ vars.REMOTE_DOCKER_HOST }}:${{ vars.REMOTE_DOCKER_SSH_PORT }}"
       run: |
         docker pull ghcr.io/netboot-infra/discord-server-invite:latest
