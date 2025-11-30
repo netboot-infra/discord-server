@@ -14,6 +14,8 @@ networks:
 
 services:
   nginx:
+    cap_drop:
+      - "ALL"
     deploy:
       !!merge <<: [*common-deploy]
       labels:
@@ -23,13 +25,15 @@ services:
         - "traefik.http.routers.discord-invite.rule=Host(`discord.$DOMAIN_NAME`)"
         - "traefik.http.routers.discord-invite.entrypoints=https"
         - "traefik.http.services.discord-invite.loadbalancer.server.port=8080"
-        - "traefik.http.routers.discord-invite.middlewares=auth-member"
+        - "traefik.http.routers.discord-invite.middlewares=auth-default"
     environment:
       !!merge <<: *common-env
     image: ghcr.io/netboot-infra/discord-server-invite:latest
     networks:
       - public
     read_only: true
-    user: "1000:1000"
+    security_opt:
+      - no-new-privileges:true
     tmpfs:
       - /tmp:rw,uid=1000,gid=1000
+    user: "1000:1000"
