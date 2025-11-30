@@ -64,4 +64,4 @@ jobs:
         DOCKER_HOST: "ssh://${{ vars.REMOTE_DOCKER_HOST }}:${{ vars.REMOTE_DOCKER_SSH_PORT }}"
       run: |
         docker pull ghcr.io/netboot-infra/discord-server-invite:latest
-        docker stack deploy discord-invite --compose-file docker-compose.yml
+        cat docker-compose.yml | envsubst | docker stack deploy --compose-file - discord-invite
